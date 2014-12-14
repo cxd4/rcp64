@@ -1,0 +1,31 @@
+zilmar's "common plugin specifications" defined four types of plug-ins:
+
+#define PLUGIN_TYPE_RSP        1
+#define PLUGIN_TYPE_GFX        2
+#define PLUGIN_TYPE_AUDIO      3
+#define PLUGIN_TYPE_CONTROLLER 4
+
+Since before releasing Project64, he revised each of these common definitions
+to at least version 1.1, updating the system through which different emulators
+will read and initialize the plug-ins of any type.
+
+    File Name      Publication 
+----------------- -------------
+Rsp #1.0.h        Never
+Gfx #1.0.h        Never
+Audio #1.0.h      Never
+Gfx #1.1.h        Never
+Gfx #1.2.h        October 2000
+Audio #1.1.h      October 2000
+Controller #1.0.h December 2000
+Gfx #1.3.h        August 2001
+Rsp #1.1.h        August 2001
+Controller #1.1.h November 2001
+
+For zilmar's original notes documenting history of the specifications, see:
+`Plugin Spec history.txt'
+
+Some files were corrected in slight ways not affecting the code shortly after
+the actual date of release, but the month always held the same.  Upon the death
+of the year 2001, zilmar discontinued Project64 at version 1.4 and any new
+development of his plug-in specifications.
