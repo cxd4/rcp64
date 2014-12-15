@@ -98,6 +98,18 @@ typedef void*                   p_void;
 typedef void(*p_func)(void);
 
 /*
+ * helper macros with exporting functions for shared objects or dynamically
+ * loaded libraries
+ */
+#if defined(_WIN32)
+#define EXPORT      __declspec(dllexport)
+#define CALL        __cdecl
+#else
+#define EXPORT      __attribute__((visibility("default")))
+#define CALL
+#endif
+
+/*
  * Optimizing compilers aren't necessarily perfect compilers, but they do
  * have that extra chance of supporting explicit [anti-]inline instructions.
  */

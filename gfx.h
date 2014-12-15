@@ -88,14 +88,6 @@ typedef struct {
     p_func CheckInterrupts;
 } GFX_INFO;
 
-#if defined(_WIN32)
-#define EXPORT      __declspec(dllexport)
-#define CALL        __cdecl
-#else
-#define EXPORT      __attribute__((visibility("default")))
-#define CALL
-#endif
-
 /******************************************************************************
 * name     :  CaptureScreen
 * optional :  yes

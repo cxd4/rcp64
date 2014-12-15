@@ -114,14 +114,6 @@ typedef struct {
     p_func Enter_Memory_Window;
 } DEBUG_INFO;
 
-#if defined(_WIN32)
-#define EXPORT      __declspec(dllexport)
-#define CALL        __cdecl
-#else
-#define EXPORT      __attribute__((visibility("default")))
-#define CALL
-#endif
-
 /******************************************************************
   Function: CloseDLL
   Purpose:  This function is called when the emulator is closing
