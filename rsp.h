@@ -24,8 +24,9 @@ extern "C" {
 #define PLUGIN_API_VERSION      0x0102
 #endif
 
-/* old name from the original specs, typo'ing "swapped" to "swaped" */
-#define MemorySwapped   MemoryBswaped
+/* old names from the original specification file */
+#define hInst               hinst
+#define MemorySwapped       MemoryBswaped
 
 typedef struct {
     i32 left;

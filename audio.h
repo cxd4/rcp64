@@ -52,8 +52,9 @@ extern "C" {
 
 /***** structures *****/
 
-/* old name from the original specs, typo'ing "swapped" to "swaped" */
-#define MemorySwapped   MemoryBswaped
+/* old names from the original specification file */
+#define hInst               hinst
+#define MemorySwapped       MemoryBswaped
 
 typedef struct {
     u16 Version;        /* Set to PLUGIN_API_VERSION. */
