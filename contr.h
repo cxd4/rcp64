@@ -81,30 +81,38 @@ typedef struct {
 #define U_CBUTTONS      U_CBUTTON
 #define R_CBUTTONS      R_CBUTTON
 
+typedef struct {
+    unsigned R_JPAD      :  1;
+    unsigned L_JPAD      :  1;
+    unsigned D_JPAD      :  1;
+    unsigned U_JPAD      :  1;
+    unsigned START_BUTTON:  1;
+    unsigned Z_TRIG      :  1;
+    unsigned B_BUTTON    :  1;
+    unsigned A_BUTTON    :  1;
+
+    unsigned R_CBUTTONS  :  1;
+    unsigned L_CBUTTONS  :  1;
+    unsigned D_CBUTTONS  :  1;
+    unsigned U_CBUTTONS  :  1;
+    unsigned R_TRIG      :  1;
+    unsigned L_TRIG      :  1;
+    unsigned Reserved1   :  1;
+    unsigned Reserved2   :  1;
+
+    signed   stick_y     :  8;
+    signed   stick_x     :  8;
+
+#if 0
+    unsigned char errno; /* not supported by this plugin system */
+#endif
+} OS_CONT_PAD;
+
 typedef union {
     u32 Value;
-    struct {
-        unsigned R_JPAD      :  1;
-        unsigned L_JPAD      :  1;
-        unsigned D_JPAD      :  1;
-        unsigned U_JPAD      :  1;
-        unsigned START_BUTTON:  1;
-        unsigned Z_TRIG      :  1;
-        unsigned B_BUTTON    :  1;
-        unsigned A_BUTTON    :  1;
-
-        unsigned R_CBUTTONS  :  1;
-        unsigned L_CBUTTONS  :  1;
-        unsigned D_CBUTTONS  :  1;
-        unsigned U_CBUTTONS  :  1;
-        unsigned R_TRIG      :  1;
-        unsigned L_TRIG      :  1;
-        unsigned Reserved1   :  1;
-        unsigned Reserved2   :  1;
-
-        signed   stick_y     :  8;
-        signed   stick_x     :  8;
-    };
+    u16 halfwords[2];
+    i8 bytes[4];
+    OS_CONT_PAD cont_pad;
 } BUTTONS;
 
 /* old names from the original specification file */
