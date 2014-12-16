@@ -31,7 +31,9 @@ extern "C" {
 #define PLUGIN_MEMPAK               2
 #define PLUGIN_RUMBLE_PAK           3
 #define PLUGIN_TRANSFER_PAK         PLUGIN_TANSFER_PAK
+#if (PLUGIN_API_VERSION >= 0x0101)
 #define PLUGIN_RAW                  5
+#endif
 
 /* original, typo'd macro name from original spec file */
 #define PLUGIN_TANSFER_PAK          4
@@ -109,6 +111,7 @@ typedef union {
 #define hInst               hinst
 #define MemorySwapped       MemoryBswaped
 
+#if (PLUGIN_API_VERSION >= 0x0101)
 typedef struct {
     p_void hMainWindow;
     p_void hInst;
@@ -117,6 +120,7 @@ typedef struct {
     pu8 HEADER; /* 64-byte ROM header (sensitive to MemorySwapped flag) */
     CONTROL * Controls; /* pointer to an array of 4 controllers */
 } CONTROL_INFO;
+#endif
 
 /******************************************************************************
 * name     :  CloseDLL
