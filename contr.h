@@ -257,18 +257,11 @@ EXPORT void CALL RomOpen(void);
 * input    :  wParam:  message code, if the API encodes as unsigned integers
 *             lParam:  long message code, if the API encodes as long pointers
 * output   :  none
-* notes    :  The chosen cross-platform approximations of the Microsoft types
-*             `WPARAM' and `LPARAM' are inaccurate in a couple scenarios:
-*                 a) when using a compiler conforming to MSVC's own LLP64 model
-*                 b) when building for some 16-bit targets, like Windows 3.1
-*             As a result, these types will only be portable to standard types
-*             when not targeting a 64-bit operating system AND Windows.
+* notes    :  Numerous complications with ABI issues in Microsoft's compilers
+*             versus the LP64 model prevent a reliable, 64-bit message system
+*             from being truly cross-target.  32-bit precision should suffice.
 *******************************************************************************/
-#if defined(_WIN64) & defined(_MSC_VER)
-EXPORT void CALL WM_KeyDown(unsigned __int64 wParam, __int64 lParam);
-#else
-EXPORT void CALL WM_KeyDown(unsigned int wParam, long lParam);
-#endif
+EXPORT void CALL WM_KeyDown(unsigned int wParam, i32 lParam);
 
 /******************************************************************************
 * name     :  WM_KeyUp
@@ -280,11 +273,7 @@ EXPORT void CALL WM_KeyDown(unsigned int wParam, long lParam);
 * output   :  none
 * notes    :  See Iconoclast's notes for the above `WM_KeyDown' procedure.
 *******************************************************************************/
-#if defined(_WIN64) & defined(_MSC_VER)
-EXPORT void CALL WM_KeyUp(unsigned __int64 wParam, __int64 lParam);
-#else
-EXPORT void CALL WM_KeyUp(unsigned int wParam, long lParam);
-#endif
+EXPORT void CALL WM_KeyUp(unsigned int wParam, i32 lParam);
 
 #if defined(__cplusplus)
 }
