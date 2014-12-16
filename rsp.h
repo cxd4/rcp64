@@ -249,4 +249,5 @@ EXPORT void CALL PluginLoaded(void);
 #if defined(__cplusplus)
 }
 #endif
+
 #endif
