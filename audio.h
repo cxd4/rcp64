@@ -71,10 +71,17 @@ typedef struct {
     p_void hInst;
     int MemorySwapped;
 
+#if (PLUGIN_API_VERSION >= 0x0101)
     pu8 HEADER; /* 64-byte ROM header (sensitive to MemorySwapped flag) */
+#endif
     pu8 RDRAM; /* CPU-RCP dynamic RAM (sensitive to MemorySwapped flag) */
     pu8 DMEM; /* high 4K of SP cache memory (sensitive to MemorySwapped flag) */
     pu8 IMEM; /* low 4K of SP cache memory (sensitive to MemorySwapped flag) */
+
+#if (PLUGIN_API_VERSION < 0x0101)
+#error Audio #1.0 specifications unknown; offset for `SystemType' unknown.
+    int SystemType;
+#endif
 
     pu32 MI_INTR_REG;
 
@@ -195,7 +202,11 @@ EXPORT int CALL InitiateAudio(AUDIO_INFO Audio_Info);
 * input    :  none
 * output   :  none
 *******************************************************************************/
+#if (PLUGIN_API_VERSION < 0x0101)
+#error Audio #1.0 specifications unknown; old audio lists function name unknown.
+#else
 EXPORT void CALL ProcessAList(void);
+#endif
 
 /******************************************************************************
 * name     :  RomClosed
