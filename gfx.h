@@ -110,8 +110,10 @@ EXPORT void CALL CaptureScreen(char * Directory);
 * input    :  none
 * output   :  none
 *******************************************************************************/
-#if (PLUGIN_API_VERSION >= 0x0101)
-EXPORT void CALL ChangeWindow(void); /* unpublished #1.1 has older form?? */
+#if (PLUGIN_API_VERSION < 0x0102)
+#error `ChangeWindow` in older, unreleased Gfx #1.1 and 1.0 has unknown form.
+#else
+EXPORT void CALL ChangeWindow(void);
 #endif
 
 /******************************************************************************
