@@ -207,7 +207,7 @@ EXPORT void CALL ProcessDList(void);
 * input    :  none
 * output   :  none
 *******************************************************************************/
-#if (PLUGIN_API_VERSION != 0x0102)
+#if (PLUGIN_API_VERSION == 0x0100) | (PLUGIN_API_VERSION >= 0x0103)
 EXPORT void CALL ProcessRDPList(void);
 #endif
 
