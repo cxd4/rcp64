@@ -56,7 +56,7 @@ typedef struct {
 
 typedef struct {
     p_void hInst;
-    int MemoryBswaped;
+    int MemorySwapped;
 
     pu8 RDRAM; /* CPU-RCP dynamic RAM (sensitive to MemorySwapped flag) */
     pu8 DMEM; /* high 4K of SP cache memory (sensitive to MemorySwapped flag) */
