@@ -10,7 +10,7 @@
  * Notes:
  *
  * Setting the approprate bits in MI_INTR_REG and calling CheckInterrupts
- * (which are both passed to the DLL via InitiateGFX) will generate an
+ * (which are both passed to the plugin via InitiateGFX) will generate an
  * interrupt from within the plugin.
  *
  * The setting of the RSP flags and generation of an SP interrupt should NOT
@@ -41,9 +41,9 @@ extern "C" {
 typedef struct {
     u16 Version;        /* Set to PLUGIN_API_VERSION. */
     u16 Type;           /* Set to PLUGIN_TYPE_GFX. */
-    char Name[100];     /* name of the DLL */
+    char Name[100];     /* plugin title, to help the user select plugins */
 
-    /* If the DLL supports these memory options, then set them to TRUE. */
+    /* If the plugin supports these memory options, then set them to true. */
     int NormalMemory;   /* a normal byte array */
     int MemorySwapped;  /* a normal byte array choosing the client-side,
                            native hardware's endian over the MIPS target's */

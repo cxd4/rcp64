@@ -53,7 +53,7 @@ extern "C" {
 typedef struct {
     u16 Version;        /* Set to PLUGIN_API_VERSION. */
     u16 Type;           /* Set to PLUGIN_TYPE_CONTROLLER. */
-    char Name[100];     /* name of the DLL */
+    char Name[100];     /* plugin title, to help the user select plugins */
     int Reserved1;
     int Reserved2;
 } PLUGIN_INFO;

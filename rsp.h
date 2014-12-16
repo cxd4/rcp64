@@ -45,11 +45,11 @@ typedef struct {
 } winapi_paintstruct;
 
 typedef struct {
-    u16 Version;       /* Set to PLUGIN_API_VERSION. */
-    u16 Type;          /* Set to PLUGIN_TYPE_RSP. */
-    char Name[100];    /* name of the DLL */
+    u16 Version;        /* Set to PLUGIN_API_VERSION. */
+    u16 Type;           /* Set to PLUGIN_TYPE_RSP. */
+    char Name[100];     /* plugin title, to help the user select plugins */
 
-    /* If the DLL supports these memory options, then set them to TRUE. */
+    /* If the plugin supports these memory options, then set them to true. */
     int NormalMemory;   /* a normal byte array */
     int MemorySwapped;  /* a normal byte array choosing the client-side,
                            native hardware's endian over the MIPS target's */
