@@ -54,7 +54,9 @@ typedef struct {
 
     int MemoryBswaped;
 
+#if (PLUGIN_API_VERSION >= 0x0102)
     pu8 HEADER; /* 64-byte ROM header (sensitive to MemorySwapped flag) */
+#endif
     pu8 RDRAM; /* CPU-RCP dynamic RAM (sensitive to MemorySwapped flag) */
     pu8 DMEM; /* high 4K of SP cache memory (sensitive to MemorySwapped flag) */
     pu8 IMEM; /* low 4K of SP cache memory (sensitive to MemorySwapped flag) */
