@@ -227,7 +227,7 @@ EXPORT void CALL InitiateControllers(CONTROL_INFO * ControlInfo);
 * input    :  Control:  controller number (0 to 3) or -1 upon end of PIF RAM
 *          :  Command:  pointer to the raw data to be processed
 * output   :  none
-* notes    :  This function is only needed if the the is allowing raw data.
+* notes    :  This function is only needed if the plugin is allowing raw data.
 *******************************************************************************/
 EXPORT void CALL ReadController(int Control, pu8 Command);
 
