@@ -81,7 +81,13 @@ typedef struct {
 #define U_CBUTTONS      U_CBUTTON
 #define R_CBUTTONS      R_CBUTTON
 
+#define SWAP_HALFWORD_BYTES
+#if defined(__BIG_ENDIAN__) | (__BYTE_ORDER != __LITTLE_ENDIAN)
+#undef SWAP_HALFWORD_BYTES
+#endif
+
 typedef struct {
+#ifdef SWAP_HALFWORD_BYTES
     unsigned R_JPAD      :  1;
     unsigned L_JPAD      :  1;
     unsigned D_JPAD      :  1;
@@ -99,9 +105,33 @@ typedef struct {
     unsigned L_TRIG      :  1;
     unsigned Reserved1   :  1;
     unsigned Reserved2   :  1;
+#else
+    unsigned R_CBUTTONS  :  1;
+    unsigned L_CBUTTONS  :  1;
+    unsigned D_CBUTTONS  :  1;
+    unsigned U_CBUTTONS  :  1;
+    unsigned R_TRIG      :  1;
+    unsigned L_TRIG      :  1;
+    unsigned Reserved1   :  1;
+    unsigned Reserved2   :  1;
 
+    unsigned R_JPAD      :  1;
+    unsigned L_JPAD      :  1;
+    unsigned D_JPAD      :  1;
+    unsigned U_JPAD      :  1;
+    unsigned START_BUTTON:  1;
+    unsigned Z_TRIG      :  1;
+    unsigned B_BUTTON    :  1;
+    unsigned A_BUTTON    :  1;
+#endif
+
+#ifdef SWAP_HALFWORD_BYTES
     signed   stick_y     :  8;
     signed   stick_x     :  8;
+#else
+    signed   stick_x     :  8;
+    signed   stick_y     :  8;
+#endif
 
 #if 0
     unsigned char errno; /* not supported by this plugin system */
