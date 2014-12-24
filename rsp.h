@@ -28,6 +28,22 @@ extern "C" {
 #define hInst               hinst
 #define MemorySwapped       MemoryBswaped
 
+/*
+ * Declare RSP_INFO structure instance as:  `RSP_INFO RSP_INFO_NAME;'
+ * ... for the ability to use the below convenience macros.
+ *
+ * Doing the traditional `RSP_INFO rsp_info' declaration has also worked but
+ * requires accessing the RCP registers in a less portable way, for example:
+ * `*(rsp_info).MI_INTR_REG |= MI_INTR_MASK_SP;'
+ * versus
+ * `GET_RCP_REG(MI_INTR_REG) |= MI_INTR_MASK_SP;'.
+ */
+#ifndef RSP_INFO_NAME
+#define RSP_INFO_NAME           RCP_info_RSP
+#define GET_RSP_INFO(member)    ((RSP_INFO_NAME).(member))
+#define GET_RCP_REG(member)     (*(RSP_INFO_NAME).(member))
+#endif
+
 typedef struct {
     i32 left;
     i32 top;

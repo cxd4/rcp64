@@ -48,6 +48,19 @@ extern "C" {
 * see about adding these functions in the next release of these specifications.
 *******************************************************************************/
 
+/*
+ * Try declaring CONTROL_INFO structure instance as:
+ * `CONTROL_INFO CONTROL_INFO_NAME;'
+ *
+ * Doing the traditional `CONTROL_INFO SI_info' declaration requires
+ * accessing the RCP information in a less portable way.
+ */
+#ifndef CONTROL_INFO_NAME
+#define CONTROL_INFO_NAME       RCP_info_SI
+#define GET_SI_INFO(member)     ((CONTROL_INFO_NAME).(member))
+#define GET_RCP_REG(member)     (*(CONTROL_INFO_NAME).(member))
+#endif
+
 /***** structures *****/
 
 typedef struct {

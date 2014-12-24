@@ -50,11 +50,27 @@ extern "C" {
 #define SYSTEM_PAL                  1
 #define SYSTEM_MPAL                 2
 
-/***** structures *****/
-
 /* old names from the original specification file */
 #define hInst               hinst
 #define MemorySwapped       MemoryBswaped
+
+/*
+ * Declare AUDIO_INFO structure instance as:  `AUDIO_INFO AUDIO_INFO_NAME;'
+ * ... for the ability to use the below convenience macros.
+ *
+ * Doing the traditional `AUDIO_INFO AI_info' declaration has also worked but
+ * requires accessing the RCP registers in a less portable way, for example:
+ * `*(AI_info).MI_INTR_REG |= MI_INTR_MASK_AI;'
+ * versus
+ * `GET_RCP_REG(MI_INTR_REG) |= MI_INTR_MASK_AI;'.
+ */
+#ifndef AUDIO_INFO_NAME
+#define AUDIO_INFO_NAME         RCP_info_AI
+#define GET_AI_INFO(member)     ((AUDIO_INFO_NAME).(member))
+#define GET_RCP_REG(member)     (*(AUDIO_INFO_NAME).(member))
+#endif
+
+/***** structures *****/
 
 typedef struct {
     u16 Version;        /* Set to PLUGIN_API_VERSION. */

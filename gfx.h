@@ -32,11 +32,27 @@ extern "C" {
 #define PLUGIN_API_VERSION      0x0103
 #endif
 
-/***** structures *****/
-
 /* old names from the original specification file */
 #define hInst               hinst
 #define MemorySwapped       MemoryBswaped
+
+/*
+ * Declare GFX_INFO structure instance as:  `GFX_INFO GFX_INFO_NAME;'
+ * ... for the ability to use the below convenience macros.
+ *
+ * Doing the traditional `GFX_INFO gfx_info' declaration has also worked but
+ * requires accessing the RCP registers in a less portable way, for example:
+ * `*(gfx_info).MI_INTR_REG |= MI_INTR_MASK_VI;'
+ * versus
+ * `GET_RCP_REG(MI_INTR_REG) |= MI_INTR_MASK_VI;'.
+ */
+#ifndef GFX_INFO_NAME
+#define GFX_INFO_NAME           RCP_info_VI
+#define GET_GFX_INFO(member)    ((GFX_INFO_NAME).(member))
+#define GET_RCP_REG(member)     (*(GFX_INFO_NAME).(member))
+#endif
+
+/***** structures *****/
 
 typedef struct {
     u16 Version;        /* Set to PLUGIN_API_VERSION. */
