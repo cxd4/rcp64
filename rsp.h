@@ -40,8 +40,8 @@ extern "C" {
  */
 #ifndef RSP_INFO_NAME
 #define RSP_INFO_NAME           RCP_info_RSP
-#define GET_RSP_INFO(member)    ((RSP_INFO_NAME).(member))
-#define GET_RCP_REG(member)     (*(RSP_INFO_NAME).(member))
+#define GET_RSP_INFO(member)    ((RSP_INFO_NAME).member)
+#define GET_RCP_REG(member)     (*(RSP_INFO_NAME).member)
 #endif
 
 typedef struct {

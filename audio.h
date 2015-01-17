@@ -66,8 +66,8 @@ extern "C" {
  */
 #ifndef AUDIO_INFO_NAME
 #define AUDIO_INFO_NAME         RCP_info_AI
-#define GET_AI_INFO(member)     ((AUDIO_INFO_NAME).(member))
-#define GET_RCP_REG(member)     (*(AUDIO_INFO_NAME).(member))
+#define GET_AI_INFO(member)     ((AUDIO_INFO_NAME).member)
+#define GET_RCP_REG(member)     (*(AUDIO_INFO_NAME).member)
 #endif
 
 /***** structures *****/

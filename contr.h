@@ -57,8 +57,8 @@ extern "C" {
  */
 #ifndef CONTROL_INFO_NAME
 #define CONTROL_INFO_NAME       RCP_info_SI
-#define GET_SI_INFO(member)     ((CONTROL_INFO_NAME).(member))
-#define GET_RCP_REG(member)     (*(CONTROL_INFO_NAME).(member))
+#define GET_SI_INFO(member)     ((CONTROL_INFO_NAME).member)
+#define GET_RCP_REG(member)     (*(CONTROL_INFO_NAME).member)
 #endif
 
 /***** structures *****/

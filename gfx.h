@@ -48,8 +48,8 @@ extern "C" {
  */
 #ifndef GFX_INFO_NAME
 #define GFX_INFO_NAME           RCP_info_VI
-#define GET_GFX_INFO(member)    ((GFX_INFO_NAME).(member))
-#define GET_RCP_REG(member)     (*(GFX_INFO_NAME).(member))
+#define GET_GFX_INFO(member)    ((GFX_INFO_NAME).member)
+#define GET_RCP_REG(member)     (*(GFX_INFO_NAME).member)
 #endif
 
 /***** structures *****/
