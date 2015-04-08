@@ -20,8 +20,8 @@ extern "C" {
 #define PLUGIN_TYPE_AUDIO           3
 #define PLUGIN_TYPE_CONTROLLER      4
 
-#ifndef PLUGIN_API_VERSION
-#define PLUGIN_API_VERSION      0x0102
+#ifndef SPECS_VERSION
+#define SPECS_VERSION           0x0102
 #endif
 
 /* old names from the original specification file */
@@ -61,7 +61,7 @@ typedef struct {
 } winapi_paintstruct;
 
 typedef struct {
-    u16 Version;        /* Set to PLUGIN_API_VERSION. */
+    u16 Version;        /* Set to SPECS_VERSION. */
     u16 Type;           /* Set to PLUGIN_TYPE_RSP. */
     char Name[100];     /* plugin title, to help the user select plugins */
 
@@ -248,7 +248,7 @@ EXPORT void CALL RomClosed(void);
  * from Project64 in its commercial state, and there is no documentation of
  * these in the source to Project64 2.x as of yet.
  */
-#if (PLUGIN_API_VERSION >= 0x0102)
+#if (SPECS_VERSION >= 0x0102)
 EXPORT void CALL RomOpen(void);
 EXPORT void CALL EnableDebugging(int Enabled);
 EXPORT void CALL PluginLoaded(void);

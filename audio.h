@@ -36,8 +36,8 @@ extern "C" {
 
 #define PLUGIN_TYPE_AUDIO           3
 
-#ifndef PLUGIN_API_VERSION
-#define PLUGIN_API_VERSION      0x0101
+#ifndef SPECS_VERSION
+#define SPECS_VERSION           0x0101
 #endif
 
 /*
@@ -73,7 +73,7 @@ extern "C" {
 /***** structures *****/
 
 typedef struct {
-    u16 Version;        /* Set to PLUGIN_API_VERSION. */
+    u16 Version;        /* Set to SPECS_VERSION. */
     u16 Type;           /* Set to PLUGIN_TYPE_AUDIO. */
     char Name[100];     /* plugin title, to help the user select plugins */
 
@@ -88,14 +88,14 @@ typedef struct {
     p_void hInst;
     int MemorySwapped;
 
-#if (PLUGIN_API_VERSION >= 0x0101)
+#if (SPECS_VERSION >= 0x0101)
     pu8 HEADER; /* 64-byte ROM header (sensitive to MemorySwapped flag) */
 #endif
     pu8 RDRAM; /* CPU-RCP dynamic RAM (sensitive to MemorySwapped flag) */
     pu8 DMEM; /* high 4K of SP cache memory (sensitive to MemorySwapped flag) */
     pu8 IMEM; /* low 4K of SP cache memory (sensitive to MemorySwapped flag) */
 
-#if (PLUGIN_API_VERSION < 0x0101)
+#if (SPECS_VERSION < 0x0101)
 #error Audio #1.0 specifications unknown; offset for `SystemType' unknown.
     int SystemType;
 #endif
@@ -219,7 +219,7 @@ EXPORT int CALL InitiateAudio(AUDIO_INFO Audio_Info);
 * input    :  none
 * output   :  none
 *******************************************************************************/
-#if (PLUGIN_API_VERSION < 0x0101)
+#if (SPECS_VERSION < 0x0101)
 #error Audio #1.0 specifications unknown; old audio lists function name unknown.
 #else
 EXPORT void CALL ProcessAList(void);

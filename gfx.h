@@ -28,8 +28,8 @@ extern "C" {
 
 #define PLUGIN_TYPE_GFX             2
 
-#ifndef PLUGIN_API_VERSION
-#define PLUGIN_API_VERSION      0x0103
+#ifndef SPECS_VERSION
+#define SPECS_VERSION           0x0103
 #endif
 
 /* old names from the original specification file */
@@ -55,7 +55,7 @@ extern "C" {
 /***** structures *****/
 
 typedef struct {
-    u16 Version;        /* Set to PLUGIN_API_VERSION. */
+    u16 Version;        /* Set to SPECS_VERSION. */
     u16 Type;           /* Set to PLUGIN_TYPE_GFX. */
     char Name[100];     /* plugin title, to help the user select plugins */
 
@@ -71,7 +71,7 @@ typedef struct {
 
     int MemoryBswaped;
 
-#if (PLUGIN_API_VERSION >= 0x0102)
+#if (SPECS_VERSION >= 0x0102)
     pu8 HEADER; /* 64-byte ROM header (sensitive to MemorySwapped flag) */
 #endif
     pu8 RDRAM; /* CPU-RCP dynamic RAM (sensitive to MemorySwapped flag) */
@@ -115,7 +115,7 @@ typedef struct {
 * input    :  a text string representing the file system path for disk writes
 * output   :  none
 *******************************************************************************/
-#if (PLUGIN_API_VERSION >= 0x0103)
+#if (SPECS_VERSION >= 0x0103)
 EXPORT void CALL CaptureScreen(char * Directory);
 #endif
 
@@ -127,7 +127,7 @@ EXPORT void CALL CaptureScreen(char * Directory);
 * input    :  none
 * output   :  none
 *******************************************************************************/
-#if (PLUGIN_API_VERSION < 0x0102)
+#if (SPECS_VERSION < 0x0102)
 #error `ChangeWindow` in older, unreleased Gfx #1.1 and 1.0 has unknown form.
 #else
 EXPORT void CALL ChangeWindow(void);
@@ -226,7 +226,7 @@ EXPORT void CALL ProcessDList(void);
 * input    :  none
 * output   :  none
 *******************************************************************************/
-#if (PLUGIN_API_VERSION == 0x0100) | (PLUGIN_API_VERSION >= 0x0103)
+#if (SPECS_VERSION == 0x0100) | (SPECS_VERSION >= 0x0103)
 EXPORT void CALL ProcessRDPList(void);
 #endif
 
@@ -255,7 +255,7 @@ EXPORT void CALL RomOpen(void);
 * input    :  none
 * output   :  none
 *******************************************************************************/
-#if (PLUGIN_API_VERSION >= 0x0103)
+#if (SPECS_VERSION >= 0x0103)
 EXPORT void CALL ShowCFB(void);
 #endif
 

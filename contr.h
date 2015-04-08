@@ -17,8 +17,8 @@ extern "C" {
 
 #define PLUGIN_TYPE_CONTROLLER	    4
 
-#ifndef PLUGIN_API_VERSION
-#define PLUGIN_API_VERSION      0x0101
+#ifndef SPECS_VERSION
+#define SPECS_VERSION           0x0101
 #endif
 
 /*
@@ -31,7 +31,7 @@ extern "C" {
 #define PLUGIN_MEMPAK               2
 #define PLUGIN_RUMBLE_PAK           3
 #define PLUGIN_TRANSFER_PAK         PLUGIN_TANSFER_PAK
-#if (PLUGIN_API_VERSION >= 0x0101)
+#if (SPECS_VERSION >= 0x0101)
 #define PLUGIN_RAW                  5
 #endif
 
@@ -64,7 +64,7 @@ extern "C" {
 /***** structures *****/
 
 typedef struct {
-    u16 Version;        /* Set to PLUGIN_API_VERSION. */
+    u16 Version;        /* Set to SPECS_VERSION. */
     u16 Type;           /* Set to PLUGIN_TYPE_CONTROLLER. */
     char Name[100];     /* plugin title, to help the user select plugins */
     int Reserved1;
@@ -162,7 +162,7 @@ typedef union {
 #define hInst               hinst
 #define MemorySwapped       MemoryBswaped
 
-#if (PLUGIN_API_VERSION >= 0x0101)
+#if (SPECS_VERSION >= 0x0101)
 typedef struct {
     p_void hMainWindow;
     p_void hInst;
@@ -262,9 +262,9 @@ EXPORT void CALL GetKeys(int Control, BUTTONS * Keys);
 *             can be argued that RCP PI and SI have little to no integration to
 *             plugins of this type, which concentrate more on just controllers.
 *******************************************************************************/
-#if (PLUGIN_API_VERSION == 0x0100)
+#if (SPECS_VERSION == 0x0100)
 EXPORT void CALL InitiateControllers(p_void hMainWindow, CONTROL Controls[4]);
-#elif (PLUGIN_API_VERSION < 0x0102) | (0 == 0)
+#elif (SPECS_VERSION < 0x0102) | (0 == 0)
 EXPORT void CALL InitiateControllers(CONTROL_INFO ControlInfo); /* wrong? */
 #else
 EXPORT void CALL InitiateControllers(CONTROL_INFO * ControlInfo);
