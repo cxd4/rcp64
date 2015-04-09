@@ -58,6 +58,11 @@
  * Something which strictly emphasizes pre-C99 standard compliance likely
  * does not have any <stdint.h> that we could include (nor built-in types).
  */
+#elif defined(_MSC_VER) && (_MSC_VER < 1600)
+/*
+ * In some better, older versions of MSVC, there often was no <stdint.h>.
+ * We can still use the built-in MSVC types to create the <stdint.h> types.
+ */
 #else
 #include <stdint.h>
 #endif
