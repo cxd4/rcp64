@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Common RSP plugin specifications:  version #1.2 created by zilmar            *
-* Revised 2014 by Iconoclast for more compliance, portability and readability. *
+* Revised 2014-2015 by Iconoclast for more portability and readability.        *
 *                                                                              *
 * All questions or suggestions should go through the EmuTalk plugin forum.     *
 * http://www.emutalk.net/forums/showforum.php?f=31                             *
@@ -61,8 +61,8 @@ typedef struct {
 } winapi_paintstruct;
 
 typedef struct {
-    u16 Version;        /* Set to SPECS_VERSION. */
-    u16 Type;           /* Set to PLUGIN_TYPE_RSP. */
+    uint16_t Version;   /* Set to SPECS_VERSION. */
+    uint16_t Type;      /* Set to PLUGIN_TYPE_RSP. */
     char Name[100];     /* plugin title, to help the user select plugins */
 
     /* If the plugin supports these memory options, then set them to true. */
@@ -75,32 +75,32 @@ typedef struct {
     p_void hInst;
     int MemorySwapped;
 
-    pu8 RDRAM; /* CPU-RCP dynamic RAM (sensitive to MemorySwapped flag) */
-    pu8 DMEM; /* high 4K of SP cache memory (sensitive to MemorySwapped flag) */
-    pu8 IMEM; /* low 4K of SP cache memory (sensitive to MemorySwapped flag) */
+    uint8_t * RDRAM; /* CPU-RCP dynamic RAM (sensitive to MemorySwapped flag) */
+    uint8_t * DMEM; /* high 4K of SP cache (sensitive to MemorySwapped flag) */
+    uint8_t * IMEM; /* low 4K of SP cache (sensitive to MemorySwapped flag) */
 
-    pu32 MI_INTR_REG;
+    uint32_t * MI_INTR_REG;
 
-    pu32 SP_MEM_ADDR_REG;
-    pu32 SP_DRAM_ADDR_REG;
-    pu32 SP_RD_LEN_REG;
-    pu32 SP_WR_LEN_REG;
-    pu32 SP_STATUS_REG;
-    pu32 SP_DMA_FULL_REG;
-    pu32 SP_DMA_BUSY_REG;
-    pu32 SP_PC_REG; /* This was supposed to be defined AFTER semaphore. */
-    pu32 SP_SEMAPHORE_REG;
+    uint32_t * SP_MEM_ADDR_REG;
+    uint32_t * SP_DRAM_ADDR_REG;
+    uint32_t * SP_RD_LEN_REG;
+    uint32_t * SP_WR_LEN_REG;
+    uint32_t * SP_STATUS_REG;
+    uint32_t * SP_DMA_FULL_REG;
+    uint32_t * SP_DMA_BUSY_REG;
+    uint32_t * SP_PC_REG; /* This was supposed to be defined AFTER semaphore. */
+    uint32_t * SP_SEMAPHORE_REG;
 #if 0
-    pu32 SP_PC_REG; /* CPU-mapped between SP and DP command buffer regs */
+    uint32_t * SP_PC_REG; /* CPU-mapped between SP and DP command buffer regs */
 #endif
-    pu32 DPC_START_REG;
-    pu32 DPC_END_REG;
-    pu32 DPC_CURRENT_REG;
-    pu32 DPC_STATUS_REG;
-    pu32 DPC_CLOCK_REG;
-    pu32 DPC_BUFBUSY_REG;
-    pu32 DPC_PIPEBUSY_REG;
-    pu32 DPC_TMEM_REG;
+    uint32_t * DPC_START_REG;
+    uint32_t * DPC_END_REG;
+    uint32_t * DPC_CURRENT_REG;
+    uint32_t * DPC_STATUS_REG;
+    uint32_t * DPC_CLOCK_REG;
+    uint32_t * DPC_BUFBUSY_REG;
+    uint32_t * DPC_PIPEBUSY_REG;
+    uint32_t * DPC_TMEM_REG;
 
     p_func CheckInterrupts;
     p_func ProcessDList;

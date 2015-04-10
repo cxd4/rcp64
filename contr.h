@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Common audio plugin specifications:  version #1.1 created by zilmar          *
-* Revised 2014 by Iconoclast for more compliance, portability and readability. *
+* Revised 2014-2015 by Iconoclast for more portability and readability.        *
 *                                                                              *
 * All questions or suggestions should go through the EmuTalk plugin forum.     *
 * http://www.emutalk.net/forums/showforum.php?f=31                             *
@@ -64,8 +64,8 @@ extern "C" {
 /***** structures *****/
 
 typedef struct {
-    u16 Version;        /* Set to SPECS_VERSION. */
-    u16 Type;           /* Set to PLUGIN_TYPE_CONTROLLER. */
+    uint16_t Version;   /* Set to SPECS_VERSION. */
+    uint16_t Type;      /* Set to PLUGIN_TYPE_CONTROLLER. */
     char Name[100];     /* plugin title, to help the user select plugins */
     int Reserved1;
     int Reserved2;
@@ -152,9 +152,7 @@ typedef struct {
 } OS_CONT_PAD;
 
 typedef union {
-    u32 Value;
-    u16 halfwords[2];
-    i8 bytes[4];
+    uint32_t Value;
     OS_CONT_PAD cont_pad;
 } BUTTONS;
 
@@ -168,7 +166,7 @@ typedef struct {
     p_void hInst;
 
     int MemorySwapped;
-    pu8 HEADER; /* 64-byte ROM header (sensitive to MemorySwapped flag) */
+    uint8_t * HEADER; /* 64-byte ROM header (sensitive to MemorySwapped flag) */
     CONTROL * Controls; /* pointer to an array of 4 controllers */
 } CONTROL_INFO;
 #endif
@@ -195,7 +193,7 @@ EXPORT void CALL CloseDLL(void);
 *                 initialize controller:  01 03 00 FF FF FF
 *                 read controller      :  01 04 01 FF FF FF FF
 *******************************************************************************/
-EXPORT void CALL ControllerCommand(int Control, pu8 Command);
+EXPORT void CALL ControllerCommand(int Control, uint8_t * Command);
 
 /******************************************************************************
 * name     :  DllAbout
@@ -280,7 +278,7 @@ EXPORT void CALL InitiateControllers(CONTROL_INFO * ControlInfo);
 * output   :  none
 * notes    :  This function is only needed if the plugin is allowing raw data.
 *******************************************************************************/
-EXPORT void CALL ReadController(int Control, pu8 Command);
+EXPORT void CALL ReadController(int Control, uint8_t * Command);
 
 /******************************************************************************
 * name     :  RomClosed

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Common audio plugin specifications:  version #1.1 created by zilmar          *
-* Revised 2014 by Iconoclast for more compliance, portability and readability. *
+* Revised 2014-2015 by Iconoclast for more portability and readability.        *
 *                                                                              *
 * All questions or suggestions should go through the EmuTalk plugin forum.     *
 * http://www.emutalk.net/forums/showforum.php?f=31                             *
@@ -73,8 +73,8 @@ extern "C" {
 /***** structures *****/
 
 typedef struct {
-    u16 Version;        /* Set to SPECS_VERSION. */
-    u16 Type;           /* Set to PLUGIN_TYPE_AUDIO. */
+    uint16_t Version;   /* Set to SPECS_VERSION. */
+    uint16_t Type;      /* Set to PLUGIN_TYPE_AUDIO. */
     char Name[100];     /* plugin title, to help the user select plugins */
 
     /* If plugin supports these memory options, then set them to true. */
@@ -89,25 +89,25 @@ typedef struct {
     int MemorySwapped;
 
 #if (SPECS_VERSION >= 0x0101)
-    pu8 HEADER; /* 64-byte ROM header (sensitive to MemorySwapped flag) */
+    uint8_t * HEADER; /* 64-byte ROM header (sensitive to MemorySwapped flag) */
 #endif
-    pu8 RDRAM; /* CPU-RCP dynamic RAM (sensitive to MemorySwapped flag) */
-    pu8 DMEM; /* high 4K of SP cache memory (sensitive to MemorySwapped flag) */
-    pu8 IMEM; /* low 4K of SP cache memory (sensitive to MemorySwapped flag) */
+    uint8_t * RDRAM; /* CPU-RCP dynamic RAM (sensitive to MemorySwapped flag) */
+    uint8_t * DMEM; /* high 4K of SP cache (sensitive to MemorySwapped flag) */
+    uint8_t * IMEM; /* low 4K of SP cache (sensitive to MemorySwapped flag) */
 
 #if (SPECS_VERSION < 0x0101)
 #error Audio #1.0 specifications unknown; offset for `SystemType' unknown.
     int SystemType;
 #endif
 
-    pu32 MI_INTR_REG;
+    uint32_t * MI_INTR_REG;
 
-    pu32 AI_DRAM_ADDR_REG;
-    pu32 AI_LEN_REG;
-    pu32 AI_CONTROL_REG;
-    pu32 AI_STATUS_REG;
-    pu32 AI_DACRATE_REG;
-    pu32 AI_BITRATE_REG;
+    uint32_t * AI_DRAM_ADDR_REG;
+    uint32_t * AI_LEN_REG;
+    uint32_t * AI_CONTROL_REG;
+    uint32_t * AI_STATUS_REG;
+    uint32_t * AI_DACRATE_REG;
+    uint32_t * AI_BITRATE_REG;
 
     p_func CheckInterrupts;
 } AUDIO_INFO;
@@ -138,7 +138,7 @@ EXPORT void CALL AiLenChanged(void);
 * input    :  none
 * output   :  the amount of sound bytes still left to play
 *******************************************************************************/
-EXPORT u32 CALL AiReadLength(void);
+EXPORT uint32_t CALL AiReadLength(void);
 
 /******************************************************************************
 * name     :  AiUpdate

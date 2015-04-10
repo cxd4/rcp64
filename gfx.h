@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Common graphics plugin specifications:  version #1.3 created by zilmar       *
-* Revised 2014 by Iconoclast for more compliance, portability and readability. *
+* Revised 2014-2015 by Iconoclast for more portability and readability.        *
 *                                                                              *
 * All questions or suggestions should go through the EmuTalk plugin forum.     *
 * http://www.emutalk.net/forums/showforum.php?f=31                             *
@@ -55,8 +55,8 @@ extern "C" {
 /***** structures *****/
 
 typedef struct {
-    u16 Version;        /* Set to SPECS_VERSION. */
-    u16 Type;           /* Set to PLUGIN_TYPE_GFX. */
+    uint16_t Version;   /* Set to SPECS_VERSION. */
+    uint16_t Type;      /* Set to PLUGIN_TYPE_GFX. */
     char Name[100];     /* plugin title, to help the user select plugins */
 
     /* If the plugin supports these memory options, then set them to true. */
@@ -72,37 +72,37 @@ typedef struct {
     int MemoryBswaped;
 
 #if (SPECS_VERSION >= 0x0102)
-    pu8 HEADER; /* 64-byte ROM header (sensitive to MemorySwapped flag) */
+    uint8_t * HEADER; /* 64-byte ROM header (sensitive to MemorySwapped flag) */
 #endif
-    pu8 RDRAM; /* CPU-RCP dynamic RAM (sensitive to MemorySwapped flag) */
-    pu8 DMEM; /* high 4K of SP cache memory (sensitive to MemorySwapped flag) */
-    pu8 IMEM; /* low 4K of SP cache memory (sensitive to MemorySwapped flag) */
+    uint8_t * RDRAM; /* CPU-RCP dynamic RAM (sensitive to MemorySwapped flag) */
+    uint8_t * DMEM; /* high 4K of SP cache (sensitive to MemorySwapped flag) */
+    uint8_t * IMEM; /* low 4K of SP cache (sensitive to MemorySwapped flag) */
 
-    pu32 MI_INTR_REG;
+    uint32_t * MI_INTR_REG;
 
-    pu32 DPC_START_REG;
-    pu32 DPC_END_REG;
-    pu32 DPC_CURRENT_REG;
-    pu32 DPC_STATUS_REG;
-    pu32 DPC_CLOCK_REG;
-    pu32 DPC_BUFBUSY_REG;
-    pu32 DPC_PIPEBUSY_REG;
-    pu32 DPC_TMEM_REG;
+    uint32_t * DPC_START_REG;
+    uint32_t * DPC_END_REG;
+    uint32_t * DPC_CURRENT_REG;
+    uint32_t * DPC_STATUS_REG;
+    uint32_t * DPC_CLOCK_REG;
+    uint32_t * DPC_BUFBUSY_REG;
+    uint32_t * DPC_PIPEBUSY_REG;
+    uint32_t * DPC_TMEM_REG;
 
-    pu32 VI_STATUS_REG;
-    pu32 VI_ORIGIN_REG;
-    pu32 VI_WIDTH_REG;
-    pu32 VI_INTR_REG;
-    pu32 VI_V_CURRENT_LINE_REG;
-    pu32 VI_TIMING_REG;
-    pu32 VI_V_SYNC_REG;
-    pu32 VI_H_SYNC_REG;
-    pu32 VI_LEAP_REG;
-    pu32 VI_H_START_REG;
-    pu32 VI_V_START_REG;
-    pu32 VI_V_BURST_REG;
-    pu32 VI_X_SCALE_REG;
-    pu32 VI_Y_SCALE_REG;
+    uint32_t * VI_STATUS_REG;
+    uint32_t * VI_ORIGIN_REG;
+    uint32_t * VI_WIDTH_REG;
+    uint32_t * VI_INTR_REG;
+    uint32_t * VI_V_CURRENT_LINE_REG;
+    uint32_t * VI_TIMING_REG;
+    uint32_t * VI_V_SYNC_REG;
+    uint32_t * VI_H_SYNC_REG;
+    uint32_t * VI_LEAP_REG;
+    uint32_t * VI_H_START_REG;
+    uint32_t * VI_V_START_REG;
+    uint32_t * VI_V_BURST_REG;
+    uint32_t * VI_X_SCALE_REG;
+    uint32_t * VI_Y_SCALE_REG;
 
     p_func CheckInterrupts;
 } GFX_INFO;
