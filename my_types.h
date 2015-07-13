@@ -279,14 +279,36 @@ typedef u64     uint64_t;
 #endif
 
 /*
- * Single- and double-precision floating-point data types have a little less
- * room for maintenance across different CPU processors, as the C standard
- * just provides `float' and `[long] double'.  However, if we are going to
- * need 32- and 64-bit floating-point precision (which MIPS emulation does
- * require), then it could be nice to have these names just to be consistent.
+ * MIPS-native types are `float' for f32, `double' for f64.
+ * These type requirements are based on the MIPS manuals on the FPU.
  */
+#include <float.h>
+
+#if (FLT_MANT_DIG >= 24) && (FLT_MAX_EXP >= 127)
 typedef float                   f32;
+#elif (DBL_MANT_DIG >= 24) && (DBL_MAX_EXP >= 127)
+typedef double                  f32;
+#elif (LDBL_MANT_DIG >= 24) && (LDBL_MAX_EXP >= 127)
+typedef long double             f32;
+#else
+typedef struct {
+    unsigned f:  23; /* mantissa (called "fraction" in R4000 manual) */
+    unsigned e:   8; /* biased exponent, from -126 to +127 */
+    unsigned s:   1; /* sign field:  1 if negative */
+} f32;
+#endif
+
+#if (DBL_MANT_DIG >= 53) && (DBL_MAX_EXP >= 1023)
 typedef double                  f64;
+#elif (LDBL_MANT_DIG >= 53) && (LDBL_MAX_EXP >= 1023)
+typedef long double             f64;
+#else
+typedef struct {
+    unsigned f:  53;
+    unsigned e:  11;
+    unsigned s:   1;
+} f64;
+#endif
 
 /*
  * Pointer types, serving as the memory reference address to the actual type.
