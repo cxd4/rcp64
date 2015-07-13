@@ -9,7 +9,30 @@
 #ifndef _CONTR_H_INCLUDED__
 #define _CONTR_H_INCLUDED__
 
+#include <stddef.h>
+
 #include "my_types.h"
+
+/*
+ * Microsoft Windows uses WPARAM and LPARAM for message parameters.
+ * On 16-bit Windows, these types were (respectively) 16- and 32-bit.
+ * On 32-bit Windows, these types were both 32-bit.
+ * On 64-bit Windows, they are both 64-bit.
+ *
+ * WPARAM is always unsigned, and LPARAM is always signed (as in `long`).
+ * They collectively seem to be for storing memory locations as integers.
+ *
+ * These patterns seem consistent enough with `size_t` and `ssize_t` types,
+ * of which the latter is not universally available by the C standard.
+ */
+#undef ssize_t
+#ifndef SSIZE_MAX
+#if defined(_WIN64)
+typedef int64_t                 ssize_t;
+#else
+typedef signed long             ssize_t;
+#endif
+#endif
 
 #if defined(__cplusplus)
 extern "C" {
@@ -306,11 +329,8 @@ EXPORT void CALL RomOpen(void);
 * input    :  wParam:  message code, if the API encodes as unsigned integers
 *             lParam:  long message code, if the API encodes as long pointers
 * output   :  none
-* notes    :  Numerous complications with ABI issues in Microsoft's compilers
-*             versus the LP64 model prevent a reliable, 64-bit message system
-*             from being truly cross-target.  32-bit precision should suffice.
 *******************************************************************************/
-EXPORT void CALL WM_KeyDown(unsigned int wParam, i32 lParam);
+EXPORT void CALL WM_KeyDown(size_t wParam, ssize_t lParam);
 
 /******************************************************************************
 * name     :  WM_KeyUp
@@ -320,9 +340,8 @@ EXPORT void CALL WM_KeyDown(unsigned int wParam, i32 lParam);
 * input    :  wParam:  message code, if the API encodes as unsigned integers
 *             lParam:  long message code, if the API encodes as long pointers
 * output   :  none
-* notes    :  See Iconoclast's notes for the above `WM_KeyDown' procedure.
 *******************************************************************************/
-EXPORT void CALL WM_KeyUp(unsigned int wParam, i32 lParam);
+EXPORT void CALL WM_KeyUp(size_t wParam, ssize_t lParam);
 
 #if defined(__cplusplus)
 }
