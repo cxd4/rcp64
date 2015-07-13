@@ -13,14 +13,10 @@
  * what is guaranteed by simple preprocessor logic and the C89 standard, so
  * the deduction of RCP hardware types will have the following priority:
  *     1.  compiler implementation of the <stdint.h> extension
- *     2.  64-bit ABI detection by the preprocessor
+ *     2.  64-bit ABI detection by the preprocessor with help from <limits.h>
  *     3.  preprocessor derivation of literal integer interpretation
  *     4.  the presumption of C89 conformance for 8-, 16-, and 32-bit types
  *         and the presumption of `long long` support for 64-bit types
- *
- * In situations where the compiler's implementation chooses to control these
- * arbitrary sizes on its own or to exchange portability with C99 compliance,
- * the standard types (either built-in or external <stdint.h>) will be preferred.
  */
 
 /*
@@ -29,14 +25,20 @@
  * especially in the event that one decides that type requirements should be
  * mandated by the user and not permanently merged into the C specifications.
  *
- * Compilers always have had, always should have, and always will have the
- * right to choose whether it is the programmer's job to establish the
- * arbitrary sizes they prefer to have or whether the C language should
- * be complicated enough to specify additional built-in criteria such as
- * this, such that it should be able to depend on a system header for it.
+ * Custom, collision-free type definitions are also useful in that they can
+ * be tested for cross-ABI portability by changing a custom type like `u32`
+ * from `unsigned long` to `unsigned short` or vice-versa.
  */
 #ifndef _MY_TYPES_H_
 #define _MY_TYPES_H_
+
+/*
+ * This is the only method we really need to care about for defining types.
+ *
+ * All concerns of absolute plausibility are addressed with minimum-width
+ * types; we do not require fixed-width types or any C99 dependency.
+ */
+#include <limits.h>
 
 /*
  * Until proven otherwise, there are no standard integer types.
@@ -53,17 +55,7 @@
  * "better early than late" or "better early than never at all") rather than
  * a fully portable resource available or even possible all of the time.
  */
-#if defined(__STDC_VERSION__) && (__STDC_VERSION__ < 199901L)
-/*
- * Something which strictly emphasizes pre-C99 standard compliance likely
- * does not have any <stdint.h> that we could include (nor built-in types).
- */
-#elif defined(_MSC_VER) && (_MSC_VER < 1600)
-/*
- * In some better, older versions of MSVC, there often was no <stdint.h>.
- * We can still use the built-in MSVC types to create the <stdint.h> types.
- */
-#else
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)
 #include <stdint.h>
 #endif
 
@@ -170,10 +162,13 @@ typedef s8                      i8;
 typedef signed __int8           s8;
 typedef unsigned __int8         u8;
 typedef __int8                  i8;
-#else
+
+#elif (SCHAR_MIN < -127 && SCHAR_MAX >= +127)
 typedef signed char             s8;
 typedef unsigned char           u8;
 typedef char                    i8;
+#else
+#error Non-ANSI-conformant `char` size.
 #endif
 
 #if defined(HAVE_INT16_EXACT)
@@ -188,6 +183,10 @@ typedef uint_least16_t          u16;
 #elif defined(MICROSOFT_ABI)
 typedef signed __int16          s16;
 typedef unsigned __int16        u16;
+
+#elif (SCHAR_MIN < -32767 && SCHAR_MAX >= +32767)
+typedef signed char             s16;
+typedef unsigned char           u16;
 #else
 typedef signed short            s16;
 typedef unsigned short          u16;
@@ -205,12 +204,19 @@ typedef uint_least32_t          u32;
 #elif defined(MICROSOFT_ABI)
 typedef signed __int32          s32;
 typedef unsigned __int32        u32;
-#elif !defined(__LP64__) && (0xFFFFFFFFL < 0xFFFFFFFFUL)
-typedef signed long             s32;
-typedef unsigned long           u32;
-#else
+
+#elif (SCHAR_MIN < -2147483647L && SCHAR_MAX >= +2147483647L)
+typedef signed char             s32;
+typedef unsigned char           u32;
+#elif (SHRT_MIN < -2147483647L && SHRT_MAX >= +2147483647L)
+typedef signed short            s32;
+typedef unsigned short          u32;
+#elif (INT_MIN < -2147483647L && INT_MAX >= +2147483647L)
 typedef signed int              s32;
 typedef unsigned int            u32;
+#else
+typedef signed long             s32;
+typedef unsigned long           u32;
 #endif
 
 #if defined(HAVE_INT64_EXACT)
@@ -225,7 +231,11 @@ typedef uint_least64_t          u64;
 #elif defined(MICROSOFT_ABI)
 typedef signed __int64          s64;
 typedef unsigned __int64        u64;
+
 #elif defined(__LP64__) && (0x00000000FFFFFFFFUL < ~0UL)
+typedef signed long             s64;
+typedef unsigned long           u64;
+#elif (ULONG_MAX >= 0xFFFFFFFFFFFFFFFF)
 typedef signed long             s64;
 typedef unsigned long           u64;
 #else
