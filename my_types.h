@@ -330,6 +330,15 @@ typedef void(*p_func)(void);
 #endif
 
 /*
+ * Commonly, Ultra64 will refer to these common symbols.
+ * They seem to be fairly widely used outside of just <windows.h>.
+ */
+#if !defined(TRUE) && !defined(FALSE)
+#define FALSE       0
+#define TRUE        1
+#endif
+
+/*
  * Optimizing compilers aren't necessarily perfect compilers, but they do
  * have that extra chance of supporting explicit [anti-]inline instructions.
  */
