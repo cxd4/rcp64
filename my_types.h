@@ -292,9 +292,9 @@ typedef double                  f32;
 typedef long double             f32;
 #else
 typedef struct {
-    unsigned f:  23; /* mantissa (called "fraction" in R4000 manual) */
+    unsigned f:  23; /* mantissa fraction */
     unsigned e:   8; /* biased exponent, from -126 to +127 */
-    unsigned s:   1; /* sign field:  1 if negative */
+    unsigned s:   1; /* mantissa sign bit */
 } f32;
 #endif
 
@@ -304,7 +304,7 @@ typedef double                  f64;
 typedef long double             f64;
 #else
 typedef struct {
-    unsigned f:  53;
+    unsigned f:  52;
     unsigned e:  11;
     unsigned s:   1;
 } f64;
