@@ -450,28 +450,28 @@ typedef union {
  * Possibly implement other machine types in future versions of this header.
  */
 typedef struct {
-    unsigned opcode:  6;
-    unsigned rs:  5;
-    unsigned rt:  5;
-    unsigned rd:  5;
-    unsigned sa:  5;
-    unsigned function:  6;
+    unsigned opcode   :   6;
+    unsigned rs       :   5;
+    unsigned rt       :   5;
+    unsigned rd       :   5;
+    unsigned sa       :   5;
+    unsigned function :   6;
 } MIPS_type_R;
 typedef struct {
-    unsigned opcode:  6;
-    unsigned rs:  5;
-    unsigned rt:  5;
-    unsigned imm:  16;
+    unsigned opcode   :   6;
+    unsigned rs       :   5;
+    unsigned rt       :   5;
+    unsigned immediate:  16;
 } MIPS_type_I;
 
 #if (UINT_MAX >= (0x00000001UL << 26) - 1UL)
 typedef struct {
-    unsigned opcode:  6;
-    unsigned target:  26;
+    unsigned opcode   :   6;
+    unsigned target   :  26;
 } MIPS_type_J;
 #else
 typedef struct {
-    unsigned opcode:  6;
+    unsigned opcode   :   6;
     unsigned long target; /* If `int' can't store 26 bits, `long' can. */
 } MIPS_type_J;
 #endif
