@@ -410,9 +410,9 @@ typedef union {
     u8 B[8];
     s8 SB[8];
 
-    i16 F[4];
-    u16 UF[4];
-    s16 SF[4];
+    i16 Q[4];
+    u16 UQ[4];
+    s16 SQ[4];
 
     i32 H[2];
     u32 UH[2];
@@ -428,17 +428,17 @@ typedef union {
  * EEP!  Currently concentrates mostly on 32-bit endianness.
  */
 #ifndef ENDIAN_M
-#if defined(__BIG_ENDIAN__) | (__BYTE_ORDER != __LITTLE_ENDIAN)
-#define ENDIAN_M    ( 0)
+#if defined(__BIG_ENDIAN__)
+#define ENDIAN_M    ( 0U)
 #else
-#define ENDIAN_M    (~0)
+#define ENDIAN_M    (~0U)
 #endif
 #endif
 
-#define ENDIAN_SWAP_BYTE    (ENDIAN_M & 0x7 & 3)
-#define ENDIAN_SWAP_HALF    (ENDIAN_M & 0x6 & 2)
-#define ENDIAN_SWAP_BIMI    (ENDIAN_M & 0x5 & 1)
-#define ENDIAN_SWAP_WORD    (ENDIAN_M & 0x4 & 0)
+#define ENDIAN_SWAP_BYTE    (ENDIAN_M & 7U & 3U)
+#define ENDIAN_SWAP_HALF    (ENDIAN_M & 6U & 2U)
+#define ENDIAN_SWAP_BIMI    (ENDIAN_M & 5U & 1U)
+#define ENDIAN_SWAP_WORD    (ENDIAN_M & 4U & 0U)
 
 #define BES(address)    ((address) ^ ENDIAN_SWAP_BYTE)
 #define HES(address)    ((address) ^ ENDIAN_SWAP_HALF)
