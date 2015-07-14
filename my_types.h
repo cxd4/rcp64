@@ -292,7 +292,11 @@ typedef double                  f32;
 typedef long double             f32;
 #else
 typedef struct {
+#if (UINT_MAX >= (0x00000001UL << 23) - 1UL)
     unsigned f:  23; /* mantissa fraction */
+#else
+    unsigned long f;
+#endif
     unsigned e:   8; /* biased exponent, from -126 to +127 for generic values */
     unsigned s:   1; /* mantissa sign bit */
 } f32;
@@ -304,7 +308,7 @@ typedef double                  f64;
 typedef long double             f64;
 #else
 typedef struct {
-    unsigned f:  52;
+    uint64_t f/*:  52*/;
     unsigned e:  11;
     unsigned s:   1;
 } f64;
@@ -460,16 +464,15 @@ typedef struct {
     unsigned imm:  16;
 } MIPS_type_I;
 
-/*
- * Maybe worth including, maybe not.
- * It's sketchy since bit-fields pertain to `int' type, of which the size is
- * not necessarily going to be even 4 bytes.  On C compilers for MIPS itself,
- * almost certainly, but is this really important to have?
- */
-#if 0
+#if (UINT_MAX >= (0x00000001UL << 26) - 1UL)
 typedef struct {
     unsigned opcode:  6;
     unsigned target:  26;
+} MIPS_type_J;
+#else
+typedef struct {
+    unsigned opcode:  6;
+    unsigned long target; /* If `int' can't store 26 bits, `long' can. */
 } MIPS_type_J;
 #endif
 
