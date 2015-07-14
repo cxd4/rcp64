@@ -284,23 +284,23 @@ typedef u64     uint64_t;
  */
 #include <float.h>
 
-#if (FLT_MANT_DIG >= 24) && (FLT_MAX_EXP >= 127)
+#if (FLT_MANT_DIG >= 24) && (FLT_MAX_EXP > 127)
 typedef float                   f32;
-#elif (DBL_MANT_DIG >= 24) && (DBL_MAX_EXP >= 127)
+#elif (DBL_MANT_DIG >= 24) && (DBL_MAX_EXP > 127)
 typedef double                  f32;
-#elif (LDBL_MANT_DIG >= 24) && (LDBL_MAX_EXP >= 127)
+#elif (LDBL_MANT_DIG >= 24) && (LDBL_MAX_EXP > 127)
 typedef long double             f32;
 #else
 typedef struct {
     unsigned f:  23; /* mantissa fraction */
-    unsigned e:   8; /* biased exponent, from -126 to +127 */
+    unsigned e:   8; /* biased exponent, from -126 to +127 for generic values */
     unsigned s:   1; /* mantissa sign bit */
 } f32;
 #endif
 
-#if (DBL_MANT_DIG >= 53) && (DBL_MAX_EXP >= 1023)
+#if (DBL_MANT_DIG >= 53) && (DBL_MAX_EXP > 1023)
 typedef double                  f64;
-#elif (LDBL_MANT_DIG >= 53) && (LDBL_MAX_EXP >= 1023)
+#elif (LDBL_MANT_DIG >= 53) && (LDBL_MAX_EXP > 1023)
 typedef long double             f64;
 #else
 typedef struct {
