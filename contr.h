@@ -118,8 +118,13 @@ typedef struct {
 #define R_CBUTTONS      R_CBUTTON
 
 #define SWAP_HALFWORD_BYTES
-#if defined(__BIG_ENDIAN__) | (__BYTE_ORDER != __LITTLE_ENDIAN)
+#if defined(__BIG_ENDIAN__)
 #undef SWAP_HALFWORD_BYTES
+#endif
+#if defined(__BIG_ENDIAN) && defined(__BYTE_ORDER)
+#if (__BYTE_ORDER == __BIG_ENDIAN)
+#undef SWAP_HALFWORD_BYTES
+#endif
 #endif
 
 typedef struct {
