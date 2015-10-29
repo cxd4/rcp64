@@ -60,6 +60,14 @@
 #endif
 
 /*
+ * Even with -std=c89 or -ansi, modern GCC will tend to supply <stdint.h>.
+ * That isn't needed--here--for LP64 ABI, however, so why assume it exists?
+ */
+#if defined(__GNUC__) && !defined(__LP64__)
+#include <stdint.h>
+#endif
+
+/*
  * With or without external or internal support for <stdint.h>, we need to
  * confirm the level of support for RCP data types on the Nintendo 64.
  *
